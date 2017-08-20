@@ -11,7 +11,7 @@ contract shareToken {
     address public wallet;
     uint8 public decimals;
     uint256 public totalSupply;
-    var public sharePrice;
+    uint256 public sharePrice;
 
     /* This creates an array with all balances */
     mapping (address => uint256) public balanceOf;
@@ -27,7 +27,7 @@ contract shareToken {
     function shareToken(
         address companyCapital,
         uint256 initialSupply,
-        var initialPrice,
+        uint256 initialPrice,
         string tokenName,
         uint8 decimalUnits,
         string tokenSymbol
@@ -41,7 +41,7 @@ contract shareToken {
         decimals = decimalUnits;                            // Amount of decimals for display purposes
     }
 
-    function setPrice(var newSharePrice){
+    function setPrice(uint256 newSharePrice){
         sharePrice=newSharePrice;
     }
     /* Internal transfer, only can be called by this contract */
@@ -52,7 +52,7 @@ contract shareToken {
         balanceOf[_from] -= _value;                         // Subtract from the sender
         balanceOf[_to] += _value;                            // Add the same to the recipient
         Transfer(_from, _to, _value);
-        _to.send(_value*sharePrice)
+        _to.transfer(_value*sharePrice);
     }
 
     /// @notice Send `_value` tokens to `_to` from your account
@@ -71,7 +71,7 @@ contract shareToken {
         require (_value < allowance[_from][msg.sender]);     // Check allowance
         allowance[_from][msg.sender] -= _value;
         _transfer(_from, _to, _value);
-        _to.send(_value*sharePrice)
+        _to.transfer(_value*sharePrice);
         return true;
     }
 
@@ -101,7 +101,7 @@ contract shareToken {
     /// @param _value the amount of money to burn
     function burn(uint256 _value) returns (bool success) {
         require (balanceOf[wallet] > _value);            // Check if the sender has enough
-        sharePrice=sharePrice*(totalSupply/(totalSupply-_value))
+        sharePrice=sharePrice*(totalSupply/(totalSupply-_value));
         balanceOf[wallet] -= _value;                      // Subtract from the sender
         totalSupply -= _value;                                // Updates totalSupply
         Burn(wallet, _value);
@@ -112,7 +112,7 @@ contract shareToken {
     function burnFrom(address _from, uint256 _value) returns (bool success) {
         require(balanceOf[_from] >= _value);                // Check if the targeted balance is enough
         require(_value <= allowance[_from][msg.sender]);    // Check allowance
-        sharePrice=sharePrice*(totalSupply/(totalSupply-_value))
+        sharePrice=sharePrice*(totalSupply/(totalSupply-_value));
         balanceOf[_from] -= _value;                         // Subtract from the targeted balance
         allowance[_from][msg.sender] -= _value;             // Subtract from the sender's allowance
         totalSupply -= _value;                              // Update totalSupply
