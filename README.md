@@ -18,5 +18,5 @@
 <h2>How to run:</h1>
 
 Install truffle and setup testrpc.<br/>
-Start `testrpc with: testrpc -m '<your 12 word MetaMask account markup>'`<br/>
+Start testrpc with: `testrpc -m '<your 12 word MetaMask account markup>'`<br/>
 Run: `truffle compile; truffle migrate; node app.js`
