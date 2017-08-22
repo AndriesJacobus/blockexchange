@@ -70,8 +70,8 @@ contract shareToken {
     /// @param _to The address of the recipient
     /// @param _value the amount to send
     function transferFrom(address _from, address _to, uint256 _value) returns (bool success) {
-        require (_value < allowance[_from][msg.sender]);     // Check allowance
-        allowance[_from][msg.sender] -= _value;
+        require (_value < allowance[_from][_to]);     // Check allowance
+        allowance[_from][_to] -= _value;
         _transfer(_from, _to, _value);
         _from.transfer(_value*sharePrice);
         return true;
@@ -82,7 +82,7 @@ contract shareToken {
     /// @param _value the max amount they can spend
     function approve(address _spender, uint256 _value)
         returns (bool success) {
-        allowance[msg.sender][_spender] = _value;
+        allowance[wallet][_spender] = _value;
         return true;
     }
 
@@ -94,7 +94,7 @@ contract shareToken {
         returns (bool success) {
         tokenRecipient spender = tokenRecipient(_spender);
         if (approve(_spender, _value)) {
-            spender.receiveApproval(msg.sender, _value, this, _extraData);
+            spender.receiveApproval(wallet, _value, this, _extraData);
             return true;
         }
     }        

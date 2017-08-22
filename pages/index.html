@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>BlockExchange</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Bootstrap Core CSS -->
+    <link href="../bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link href="../css/blockExC.css" rel="stylesheet">
+
+    <!-- Custom Fonts -->
+    <link href="../font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+    <!-- jQuery -->
+    <script src="../jquery/jquery.min.js"></script>
+
+    <script type="text/javascript">
+        window.onload = start;
+
+        function start() {
+			if ($(window).width() <= 767)
+			{
+				$("#toggler").show();
+			}
+			
+			$("#profImg").show();
+			
+			$("#profImg").width($(".profileDiv").width());
+
+            $(window).resize(function() {
+				$("#profImg").width($(".profileDiv").width());
+
+                if ($(window).width() > 767) {
+                    $("#toggler").hide();
+                } else {
+                    $("#toggler").show();
+                }
+            });
+			
+			$( "#buyerTable > tbody > tr" ).click(function(){
+				var compID = $(this).attr('id');
+				var ppShare = $(this).children('#ppShare').html();
+				
+				$("#MODALcompID").html("" + compID);
+				$("#MODALppShare").html("" + ppShare);
+				
+				$("#buyModal").modal();
+			});
+			
+			$( "#sellerTable > tbody > tr" ).click(function(){
+				var compID = $(this).attr('id');
+				var ppShare = $(this).children('#ppShare').html();
+				
+				$("#modalTitle").html("Sell Shares");
+				$("#modalButton").html("Sell");
+				
+				$("#MODALcompID").html("" + compID);
+				$("#MODALppShare").html("" + ppShare);
+				
+				$("#Modal").modal();
+			});
+			
+			$( "#buyerTable > tbody > tr" ).click(function(){
+				var compID = $(this).attr('id');
+				var ppShare = $(this).children('#ppShare').html();
+				
+				$("#modalTitle").html("Buy Shares");
+				$("#modalButton").html("Buy");
+				
+				$("#MODALcompID").html("" + compID);
+				$("#MODALppShare").html("" + ppShare);
+				
+				$("#Modal").modal();
+			});
+
+        }
+    </script>
+</head>
+
+<body>
+    <nav class="navbar navbar-custom">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <a id="toggler" class="navbar-brand tog " href="#" data-toggle="collapse" data-target="#myNavbar" style="display: none; float: right; max-width: 100;">
+                    <img src="../MenuToggle.png">
+                </a>
+                <a class="navbar-brand" href="#">
+                    <img src="../logo.png">
+                </a>
+            </div>
+            <div class="collapse navbar-collapse" id="myNavbar">
+                <ul class="nav navbar-nav">
+                    <li class="active"><a href="#">Home</a></li>
+                </ul>
+                <ul class="nav navbar-nav navbar-right">
+                    <li><a href="#"><span><i class="fa fa-user" aria-hidden="true"></i></span> My Account</a></li>
+                    <li><a href="/login"><span><i class="fa fa-sign-out" aria-hidden="true"></i></span> Logout</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container text-center">
+        <div class="row">
+            <div class="col-md-3 well">
+                <div class = "profileDiv">
+					<div>
+						<img id = "profImg" src = "./prof.jpeg" style = "height: auto; display: none;"></img>
+						<br/>
+						<br/>
+						<u style="color: #004080;">My Profile</u>
+					</div>
+					
+					<br/>
+					
+                    <p style = "font-size: 13px;">
+						My Company Name: <label style="color: #004080;">Two</label><br/>
+						My Company ID: <label style="color: #004080;">fghjk</label><br/>
+					</p>
+					
+					
+                </div>
+            </div>
+            <div class="col-md-9">
+
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        Trade Floor
+                    </div>
+                    <!-- /.panel-heading -->
+                    <div class="panel-body">
+
+                        <ul class="nav nav-tabs">
+                            <li class="active">
+                                <a href="#buy" data-toggle="tab">Buy</a>
+                            </li>
+                            <li>
+                                <a href="#sell" data-toggle="tab">Sell</a>
+                            </li>
+                        </ul>
+
+                        <div class="tab-content">
+                            <div class="tab-pane fade in active" id="buy" style="margin: 10px; overflow: auto;">
+
+                                <div class="col-xs-12" align="left">
+                                    <table id = "buyerTable" class="table table-striped table-hover">
+                                        <thead>
+                                            <tr>
+                                                <th>Company Name</th>
+                                                <th>Company ID</th>
+                                                <th>Total Available Shares</th>
+                                                <th>Share Price</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr id = "asdfg">
+                                                <td>One</td>
+                                                <td><a href = "/getaddress">Get Address</a></td>
+                                                <td><a href = "/getNumberShares">Get share Amount</a></td>
+                                                <td id = "ppShare"><a href = "/getsharePrice">Get share Price</a></td>
+                                            </tr>
+                                            <tr id = "fghjk">
+                                                <td>Two</td>
+                                                <td><a href = "/getaddress2">Get Address</a></td>
+                                                <td><a href = "/getNumberShares2">Get share Amount</a></td>
+                                                <td id = "ppShare"><a href = "/getsharePrice2">Get share Price</a></td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+								
+                            </div>
+                            <div class="tab-pane fade" id="sell" style="margin: 10px;">
+							
+                                <div class="col-xs-12" align="left">
+                                    <table id = "sellerTable" class="table table-striped table-hover">
+                                        <thead>
+                                            <tr>
+                                                <th>Company Name</th>
+                                                <th>Company ID</th>
+                                                <th>Total Owned Shares</th>
+                                                <th>Share Price</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr id = "asdfg">
+                                                <td>One</td>
+                                                <td>asdfg</td>
+                                                <td>5</td>
+                                                <td id = "ppShare">ETH 100</td>
+                                            </tr>
+                                            <tr id = "fghjk">
+                                                <td>Two</td>
+                                                <td>fghjk</td>
+                                                <td>10</td>
+                                                <td id = "ppShare">ETH 500</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+								
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-xs-12">
+            <p style="margin-bottom: 50px;"></p>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-xs-12">
+            <footer class="container-fluid text-center">
+                <p>
+                    Made by team <a style="color: #004080;">HighFive</a> :
+                    <br/> Jaco, Andrew, Shaun, Tsidi, Nelly, Musa
+                </p>
+            </footer>
+        </div>
+    </div>
+
+    <!-- jQuery -->
+    <script src="../jquery/jquery.min.js"></script>
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="../bootstrap/js/bootstrap.min.js"></script>
+
+    <!-- Modal -->
+    <div id="Modal" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 id = "modalTitle" class="modal-title">[]</h4>
+                </div>
+                <div class="modal-body">
+					<label>Company ID:</label> <label id = "MODALcompID">[]</label><br/>
+					<label>Share amount:</label> <input id = "MODALnumShares" type = "number"></input><br/>
+					<label>Price per share:</label> <label id = "MODALppShare">[]</label><br/>
+                </div>
+                <div class="modal-footer">
+                    <button id = "modalButton" type="button" class="btn btn-success" data-dismiss="modal">Buy</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+	
+</body>
+
+</html>
